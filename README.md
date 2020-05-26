@@ -1,5 +1,5 @@
 # roboty
 
-[root@server ~]# ./get_data <tty> <package_number>
+[root@server ~]# ./get_data.py <путь к терминалу> <количество_пакетов_которые_надо_выбрать>
   
   
