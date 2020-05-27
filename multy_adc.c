@@ -1,4 +1,3 @@
-#include <Servo.h> //оставлю это тут 
 #include <MCP3008.h>
 
 
