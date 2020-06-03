@@ -10,7 +10,7 @@ import sys
 script, first, second = argv
 
 try:
-   ser = serial.Serial(first, 9600)
+   ser = serial.Serial(first, 115200)
 except:
    sys.exit(1)
 
@@ -54,8 +54,12 @@ while int(sor) <  int(second):
            for i in range(0,lens-1,2):
               post = struct.unpack( "h", data[i:i+2] )
               od.append(post[0])
+          # for i in range(24):
+          #     od[i]=(od[i]-73.68429361)/1.5872402
+
+           od[0]=(od[0]-73.68429361)/1.5872402
 
            # Выведем значения В OUTPUT
-           print("Значения с АЦП: "+ str(od))
+           print("Значения с АЦП: "+ str(od[0]))
 
 ser.close()
