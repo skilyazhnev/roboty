@@ -14,6 +14,8 @@ MCP3008 adc2(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN2);
 MCP3008 adc3(CLOCK_PIN, MOSI_PIN, MISO_PIN, CS_PIN3);
 
 
+Servo myservo;
+
 unsigned char crc8mm(unsigned char *pcBlock, unsigned int len)
 {
     unsigned char crc = 0x0;
@@ -34,6 +36,7 @@ unsigned char crc8mm(unsigned char *pcBlock, unsigned int len)
 
 void send_package(int *data, int len, byte command)
 {
+   //  unsigned char crc8s[2] = {1, 2} ;
     byte crc8s; 
     crc8s = crc8mm((unsigned char *)data, len);
     
@@ -49,23 +52,28 @@ void send_package(int *data, int len, byte command)
     Serial.write((byte *)data, len);
 }
 
+  unsigned int hop = 0;
+  int circle = 0;
+
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   pinMode(CS_PIN2, OUTPUT);
   digitalWrite(CS_PIN2, HIGH);
   pinMode(CS_PIN3, OUTPUT);
   digitalWrite(CS_PIN3, HIGH);
   pinMode(CS_PIN1, OUTPUT);
   digitalWrite(CS_PIN1, HIGH);
+
 }
 
 void loop() {
 
+
   int out[24];
   int s = 0;
-    delay(100);
-  
+
+
   for (int i=0; i <= 7; i++){
       int val = adc1.readADC(i);
       out[s] = val;
@@ -87,5 +95,4 @@ void loop() {
   byte command = 1; 
   send_package(out, sizeof(out),command) ; 
 
-  delay(500);
   }
